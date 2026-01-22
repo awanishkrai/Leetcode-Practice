@@ -1,35 +1,43 @@
-class Solution {
+\class Solution {
 public:
-int find_maximum(vector<int>&nums,int mid){
-    int count=0;
+int count_days(vector<int>& arr,int mid){
+    int n=arr.size();
     int sum=0;
-    for(int i=0;i<nums.size();i++){
-         if (nums[i] > mid) return 1e9;  
-        if(sum+nums[i]>mid){
-            sum=nums[i];
-            count++;
-        }
-        else{
-            sum+=nums[i];
-        }
-
+    int count=0;
+for(int i=0;i<n;i++){
+    if(arr[i]>mid){
+        return 1e9;
     }
-if (sum > 0) count++; 
-
+    else if(sum+arr[i]==mid){
+        sum=0;
+        count++;
+    }
+    else if(sum+arr[i]>mid){
+        
+            count++;
+        
+        sum=arr[i];
+       
+        
+    }
+    else{
+        sum+=arr[i];
+    }
     
-    return count;
 }
-    int splitArray(vector<int>& nums, int k) {
-        int l=0;
-        int r=accumulate(nums.begin(),nums.end(),0);
+if (sum > 0) count++;
+return count;
+}
+    int shipWithinDays(vector<int>& weights, int days) {
+        int l=1;
+        int r=accumulate(weights.begin(),weights.end(),0);
         while(l<r){
             int mid=(l+r)/2;
-            int ans=find_maximum(nums,mid);
-            if(ans<=k){
-                r=mid;
-            }
-            else{
-                l=mid+1;
+            int ans=count_days(weights,mid);
+            if (ans <= days) {
+                r = mid;
+            } else {
+                l = mid + 1;
             }
         }
         return l;
